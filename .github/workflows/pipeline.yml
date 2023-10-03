@@ -1,0 +1,32 @@
+name: "My first next pipeline"
+
+# Create a new pipeline trigger
+on:
+  push:
+    branches:
+      - main
+
+      #Sets permissions og the github_token to allow deployment to the gh-pages branch
+permissions:
+   contents: read
+   pages: write
+   id-token: write
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                    node-version: 18
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build
+              run: npm run build
+            
